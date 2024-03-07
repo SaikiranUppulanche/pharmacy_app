@@ -6,7 +6,7 @@ import { CartContext } from "../context/CartContext";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
-  console.log(cartCtx.cartItem);
+
   const totalAmount = cartCtx.cartItem.reduce((value, item) => {
     return (value += parseInt(item.quantity) * parseInt(item.medicinePrice));
   }, 0);
@@ -33,7 +33,7 @@ const Cart = (props) => {
         <button className={classes["button--alt"]} onClick={props.onHideCart}>
           Close
         </button>
-        <button className={classes.button}>Order</button>
+        <button className={classes.button}>Generate Bill</button>
       </div>
     </Modal>
   );

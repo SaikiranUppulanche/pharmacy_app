@@ -15,16 +15,31 @@ const MedicineForm = (props) => {
     const medicinePrice = medicinePriceRef.current.value;
 
     const medicine = {
-      id: Math.random() * 20,
       medicineName,
       medicineDescription,
       medicinePrice,
     };
+
+    fetch(
+      "https://react-auth-3257e-default-rtdb.firebaseio.com/pharmacy/medicines.json",
+      {
+        method: "POST",
+        body: JSON.stringify(medicine),
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        props.onAddMedicine({ ...medicine, id: data.name });
+      });
+
     medicineNameRef.current.value = "";
     medicineDescriptionRef.current.value = "";
     medicinePriceRef.current.value = "";
-
-    props.onAddMedicine(medicine);
   };
 
   return (
